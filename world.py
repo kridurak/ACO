@@ -24,8 +24,12 @@ class World:
     self.matrix_pheromone[self.position_start] = 0
     self.matrix_pheromone[self.position_finish] = 0
 
+    # create and list
     self.array_ant = np.empty(self.ant_count,dtype=Ant)
-    # self.array_ant =self.array_ant+ Ant(self.position_start)
+    for idx in range(0,self.ant_count):
+        self.array_ant[idx] = Ant(self.position_start)
+
+
 
     self.alpha = alpha
     self.beta = beta
