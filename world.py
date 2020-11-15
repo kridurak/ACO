@@ -36,7 +36,7 @@ class World:
     self.beta = beta
 
     self.world_shape = matrix_wall.shape
-    self.actual_iteration = 1
+    self.actual_iteration = 0
 
   def render_world(self):
     print('##### WORD RENDER #####')
@@ -59,7 +59,7 @@ class World:
     matrix_print[self.position_finish] = 'F'
 
     matrix_print[matrix_print == '1'] = "X"
-    matrix_print[matrix_print == '0'] = "  "
+    matrix_print[matrix_print == '0'] = " "
 
     matrix_ant = matrix_ant.astype(int)
     matrix_ant = matrix_ant.astype(str)
@@ -67,10 +67,10 @@ class World:
 
 
 
-    # print(np.core.defchararray.add(matrix_print, matrix_ant))
+    print(np.core.defchararray.add(matrix_print, matrix_ant))
     # print(matrix_print)
-    # print("###")
-    print(matrix_ant)
+    print("###")
+    # print(matrix_ant)
     # print("###")
     # print(self.matrix_pheromone)
 
@@ -85,6 +85,7 @@ class World:
   def start(self):
     print("Start iterations")
     self.render_world()
+    self.actual_iteration = 1
     while self.actual_iteration <= self.max_iterations:
        self.evaporate_pheromone()
        self.do_interation()
