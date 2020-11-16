@@ -7,11 +7,12 @@ from scipy.spatial import distance
 
 class Ant:
 
-    def __init__(self,start_position):
+    def __init__(self,start_position,pheromon_amount):
         self.position_actual = start_position
         self.position_last = (start_position[0] ,start_position[1] -1) #podmienak aby sa nerozhodoval pri starte dozadu
         self.to_finish = True
         self.to_start = False
+        self.start_position = pheromon_amount
 
         cmd_y = np.array([0, -1, -1, 1, 0, 1, 1, 1])
         cmd_x = np.array([-1, -1, 0, -1, 1, 1, 0, -1])
@@ -48,14 +49,14 @@ class Ant:
                  # todo: upravit aby interagovalo aj na suradnicu
                     if self.array_command[0, id_com] != self.compas[0] & self.array_command[1, id_com] != self.compas[1]:
                         print('CHECK 3 PASS: COMPAS -> last position return')
-                        cost[id_com] = float(distance.euclidean(self.position_actual, (tmp_pos_y,tmp_pos_x))) * matrix_pheromone[tmp_pos_y,tmp_pos_x]
+                        cost[id_com] = float(1/distance.euclidean(self.position_actual, (tmp_pos_y,tmp_pos_x))) * matrix_pheromone[tmp_pos_y,tmp_pos_x]
                         avaliable_step_array_index.append(id_com)
                         print('CHECK OK')
 
         print(avaliable_step_array_index)
 
         # updatne pheromon
-        matrix_pheromone[self.position_actual] += 1
+        matrix_pheromone[self.position_actual] += self.start_position
 
         #ulozenie aktaulenj polohy do minulej
         self.position_last = self.position_actual

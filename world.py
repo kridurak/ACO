@@ -3,7 +3,7 @@ from ant import Ant
 import pandas as pd
 class World:
 
-  def __init__(self, matrix_wall: np.ndarray, position_start: tuple, position_finish: tuple, ant_count: int , max_iterations: int, pheromone_start_value: float, alpha: float, beta: float):
+  def __init__(self, matrix_wall: np.ndarray, position_start: tuple, position_finish: tuple, ant_count: int , max_iterations: int, pheromone_start_value: float, pheromon_amount: float, rho: float):
     """
 
     :type matrix_wall: numpy.ndarray
@@ -26,14 +26,14 @@ class World:
     self.matrix_pheromone[self.matrix_wall == 1] = 0
     self.matrix_pheromone[self.position_start] = 0
     self.matrix_pheromone[self.position_finish] = 0
-
+    self.pheromon_amount = pheromon_amount
+    self.rho = rho
     # create and list
     self.array_ant = np.empty(self.ant_count,dtype=Ant)
     for idx in range(0,self.ant_count):
-        self.array_ant[idx] = Ant(self.position_start)
+        self.array_ant[idx] = Ant(self.position_start,self.pheromon_amount)
 
-    self.alpha = alpha
-    self.beta = beta
+
 
     self.world_shape = matrix_wall.shape
     self.actual_iteration = 0
@@ -69,10 +69,10 @@ class World:
 
     print(np.core.defchararray.add(matrix_print, matrix_ant))
     # print(matrix_print)
-    print("###")
+    # print("###")
     # print(matrix_ant)
     # print("###")
-    # print(self.matrix_pheromone)
+    print(self.matrix_pheromone)
 
 
   def do_interation(self):
@@ -97,5 +97,5 @@ class World:
 
 
   def evaporate_pheromone(self):
-    self.matrix_pheromone = self.matrix_pheromone - self.alpha
+    self.matrix_pheromone = self.matrix_pheromone * self.rho
     self.matrix_pheromone[self.matrix_pheromone < 0] = 0
