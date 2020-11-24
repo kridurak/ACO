@@ -62,7 +62,11 @@ class Ant:
         self.position_last = self.position_actual
 
         #vypocitanie a urcenie dalsieho posunu
-        next_step_id = random.choice(avaliable_step_array_index)
+
+        next_step_id = roulette_wheel_pop(avaliable_step_array_index, get_probability_list(cost, avaliable_step_array_index))
+
+
+        # next_step_id = random.choice(avaliable_step_array_index)
         print("next_step_id",next_step_id)
         self.position_actual = (self.position_actual[0] + self.array_command[0,next_step_id],self.position_actual[1] + self.array_command[1,next_step_id])
         sys.stdout = sys.__stdout__
@@ -81,12 +85,12 @@ def get_probability_list(cost, avaliable_step_array_index):
                      for i in range(len(relative_fitness))]
     return probabilities
 
-def roulette_wheel_pop(avaliable_step_array_index, probabilities, number):
+def roulette_wheel_pop(avaliable_step_array_index, probabilities):
     chosen = []
     r = random.random()
-    for (i, individual) in enumerate(avaliable_step_array_index):
+    for i in avaliable_step_array_index:
         if r <= probabilities[i]:
-            chosen.append(list(individual))
+            chosen.append(list(i))
             break
     return chosen
 
