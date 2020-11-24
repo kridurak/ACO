@@ -67,6 +67,28 @@ class Ant:
         self.position_actual = (self.position_actual[0] + self.array_command[0,next_step_id],self.position_actual[1] + self.array_command[1,next_step_id])
         sys.stdout = sys.__stdout__
 
+# každá hodnota vo vektore cost, musí mať svoju hodnotu vo vektore možných krokov
+def get_probability_list(cost, avaliable_step_array_index):
+    
+    pairs = dict(zip(cost, avaliable_step_array_index))
+    print(pairs)
+
+    fitness = pairs.values()
+    total_fitness = float(sum(fitness))
+    relative_fitness = [f/total_fitness for f in fitness]
+    
+    probabilities = [sum(relative_fitness[:i+1]) 
+                     for i in range(len(relative_fitness))]
+    return probabilities
+
+def roulette_wheel_pop(avaliable_step_array_index, probabilities, number):
+    chosen = []
+    r = random.random()
+    for (i, individual) in enumerate(avaliable_step_array_index):
+        if r <= probabilities[i]:
+            chosen.append(list(individual))
+            break
+    return chosen
 
 
 
