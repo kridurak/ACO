@@ -74,7 +74,7 @@ class Ant:
 # každá hodnota vo vektore cost, musí mať svoju hodnotu vo vektore možných krokov
 def get_probability_list(cost, avaliable_step_array_index):
     
-    pairs = dict(zip(avaliable_step_array_index, cost))
+    pairs = dict(zip(cost, avaliable_step_array_index))
     print(pairs)
 
     fitness = pairs.values()
@@ -92,5 +92,4 @@ def roulette_wheel_pop(avaliable_step_array_index, probabilities):
         counter += probabilities[i]
         if r <= counter:
             return avaliable_step_array_index[i]
-
 
