@@ -86,12 +86,10 @@ def get_probability_list(cost, avaliable_step_array_index):
     return probabilities
 
 def roulette_wheel_pop(avaliable_step_array_index, probabilities):
-    chosen = []
     r = random.random()
-    for i in avaliable_step_array_index:
+    for i in range(0,len(avaliable_step_array_index)):
         if r <= probabilities[i]:
-            chosen.append(list(i))
-            break
+            chosen = probabilities[i]
     return chosen
 
 
