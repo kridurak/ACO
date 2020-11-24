@@ -1,6 +1,7 @@
 import os
 import random
 import sys
+from typing import Counter
 
 import numpy as np
 from scipy.spatial import distance
@@ -62,34 +63,22 @@ class Ant:
         self.position_last = self.position_actual
 
         #vypocitanie a urcenie dalsieho posunu
-
-        next_step_id = roulette_wheel_pop(avaliable_step_array_index, get_probability_list(cost, avaliable_step_array_index))
-
+        next_step_id = roulette_wheel(avaliable_step_array_index, cost)
 
         # next_step_id = random.choice(avaliable_step_array_index)
         print("next_step_id",next_step_id)
         self.position_actual = (self.position_actual[0] + self.array_command[0,next_step_id],self.position_actual[1] + self.array_command[1,next_step_id])
         sys.stdout = sys.__stdout__
 
-# každá hodnota vo vektore cost, musí mať svoju hodnotu vo vektore možných krokov
-def get_probability_list(cost, avaliable_step_array_index):
-    
-    pairs = dict(zip(cost, avaliable_step_array_index))
-    print(pairs)
-
-    fitness = pairs.values()
-    total_fitness = float(sum(fitness))
-    relative_fitness = [f/total_fitness for f in fitness]
-    
-    probabilities = [sum(relative_fitness[:i+1]) 
-                     for i in range(len(relative_fitness))]
-    return probabilities
-
-def roulette_wheel_pop(avaliable_step_array_index, probabilities):
+def roulette_wheel(avaliable_step_array_index, cost):
+    # get probabilities
+    total_cost = float(sum(cost))
+    probabilities = [c/total_cost for c in cost]
+    # perform roulette
     r = random.random()
     counter = 0
     for i in range(0,len(avaliable_step_array_index)):
         counter += probabilities[i]
+        # chceck when it hit probility for random number
         if r <= counter:
             return avaliable_step_array_index[i]
-
