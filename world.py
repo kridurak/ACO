@@ -20,20 +20,23 @@ class World:
     self.matrix_wall = matrix_wall
     self.position_start = position_start
     self.position_finish = position_finish
-
     self.ant_count = ant_count
     self.max_iterations = max_iterations
-
-    self.world_shape = matrix_wall.shape
-    
-    # setup init value of pheomone
-    self.matrix_pheromone = np.zeros(self.world_shape)
-    self.matrix_pheromone[self.matrix_pheromone == 0] = pheromone_start_value
-    self.matrix_pheromone[self.matrix_wall == 1] = 0
-    self.matrix_pheromone[self.position_start] = 0
-    self.matrix_pheromone[self.position_finish] = 1000
     self.pheromon_amount = pheromon_amount
     self.rho = rho
+    self.world_shape = matrix_wall.shape
+
+
+    # setup init value of pheomone
+    self.matrix_pheromone = np.zeros(self.world_shape)
+
+    self.matrix_pheromone[self.matrix_pheromone == 0] = pheromone_start_value
+    self.matrix_pheromone[self.matrix_wall == 1] = 0
+
+    self.matrix_pheromone[self.position_start] = 0
+    self.matrix_pheromone[self.position_finish] = 1000
+
+
     # create and list
     self.array_ant = np.empty(self.ant_count,dtype=Ant)
     for idx in range(0,self.ant_count):
@@ -100,8 +103,6 @@ class World:
 
 
   def start(self):
-
-
     print("Start iterations")
     self.render_world()
     self.actual_iteration = 1

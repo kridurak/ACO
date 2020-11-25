@@ -1,10 +1,7 @@
 import os
 import random
 import sys
-
-
 import numpy as np
-# import cupy as np
 from scipy.spatial import distance
 
 class Ant:
@@ -30,7 +27,7 @@ class Ant:
         if self.to_finish:
             sys.stdout = open(os.devnull, 'w')  # disable prints in function
             self.compas = tuple(
-                [self.position_last[0] - self.position_actual[0], self.position_last[1] - self.position_actual[1]])
+                [self.position_actual[0] - self.position_last[0] ,self.position_actual[1] -  self.position_last[1]])
 
             # sekvencie prikazov pre pozrenie okolo seba
 
