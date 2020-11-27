@@ -87,7 +87,7 @@ class Ant:
             self.position_last = self.position_actual
             self.position_actual = self.history_to_finish.pop()
             # updatne pheromon
-            matrix_pheromone[self.position_actual] += self.pheromon_amount * 1000
+            matrix_pheromone[self.position_actual] += self.pheromon_amount * 100
 
         # if najdem ciel
         if self.position_actual[0] == self.position_finish[0] and self.position_actual[1] == self.position_finish[1]:

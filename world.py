@@ -4,8 +4,16 @@ from ant import Ant
 import pandas as pd
 import time
 import sys
+import os
 from tqdm import tqdm
+from matplotlib import pyplot as plt
+from datetime import datetime
 
+now = datetime.now()
+current_time = now.strftime("%d_%m-%H_%M_%S")
+
+if not os.path.exists('images/' + current_time):
+    os.makedirs('images/' + current_time)
 
 class World:
 
@@ -34,7 +42,7 @@ class World:
     self.matrix_pheromone[self.matrix_wall == 1] = 0
 
     self.matrix_pheromone[self.position_start] = 0
-    self.matrix_pheromone[self.position_finish] = 1000
+    self.matrix_pheromone[self.position_finish] = 9
 
 
     # create and list
@@ -73,12 +81,41 @@ class World:
     matrix_print[matrix_print == '0'] = " "
 
     matrix_ant = matrix_ant.astype(int)
+
+    plt.close()
+    tmp_mat = self.matrix_wall.astype(int)
+    tmp_mat[self.matrix_wall == 1] = self.ant_count + 1
+
+    matrix_ant_fig = matrix_ant + tmp_mat
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10))
+
+    for (j, i), label in np.ndenumerate(matrix_ant_fig):
+        if label == self.ant_count + 1:
+          ax1.text(i, j, 'X', ha='center', va='center')
+        else:
+          ax1.text(i, j, label, ha='center', va='center')
+
+    for (j, i), label in np.ndenumerate(self.matrix_pheromone):
+        ax2.text(i, j, np.round(label, 2), ha='center', va='center')
+
+    ax1.imshow(matrix_ant_fig)
+    ax1.set_title('matrix_ant')
+
+    ax2.imshow(self.matrix_pheromone)
+    ax2.set_title('matrix_pheromone')
+
+
     matrix_ant = matrix_ant.astype(str)
     matrix_ant[matrix_ant == '0'] = " "
 
+    # plt.imshow(self.matrix_pheromone)
+    plt.pause(0.01)
+    plt.savefig(F'images/{current_time}/{self.actual_iteration}__{self.ant_count}m.png')
+    # plt.show()
 
 
-    print(np.core.defchararray.add(matrix_print, matrix_ant))
+
+    # print(np.core.defchararray.add(matrix_print, matrix_ant))
     # print(matrix_print)
     # print("###")
     # print(matrix_ant)
@@ -110,7 +147,7 @@ class World:
     for self.actual_iteration in tqdm(range(self.actual_iteration,self.max_iterations)):
        self.evaporate_pheromone()
        self.do_interation()
-       # self.render_world()
+       self.render_world()
        # self.actual_iteration += 1
 
 
