@@ -79,6 +79,23 @@ class World:
         matrix_print[matrix_print == '0'] = " "
 
         matrix_ant = matrix_ant.astype(int)
+        self.render_gui(matrix_ant)
+        # matrix_ant = matrix_ant.astype(str)
+        # matrix_ant[matrix_ant == '0'] = " "
+
+        # print(np.core.defchararray.add(matrix_print, matrix_ant))
+        # print(matrix_print)
+        # print("###")
+        # print(matrix_ant)
+        # print("###")
+        # print(self.matrix_pheromone)
+
+    def render_gui(self, matrix_ant):
+
+        render_matrix = matrix_ant
+        render_matrix[self.position_finish] = '-1'
+        render_pheromone = self.matrix_pheromone
+        render_pheromone[self.position_finish] = '-1'
 
         plt.close()
         tmp_mat = self.matrix_wall.astype(int)
@@ -93,8 +110,14 @@ class World:
             else:
                 ax1.text(i, j, label, ha='center', va='center')
 
+        # ax1.text(self.position_finish[1],self.position_finish[0], 'F', ha='center', va='center')
+
         for (j, i), label in np.ndenumerate(self.matrix_pheromone):
-            ax2.text(i, j, np.round(label, 2), ha='center', va='center')
+            # print(label)
+            if label == self.ant_count + 1:
+                ax1.text(i, j, 'X', ha='center', va='center')
+            else:
+                ax2.text(i, j, np.round(label, 2), ha='center', va='center')
 
         ax1.imshow(matrix_ant_fig)
         ax1.set_title('matrix_ant')
@@ -109,13 +132,6 @@ class World:
         plt.pause(0.01)
         plt.savefig(F'images/{current_time}/{self.actual_iteration}__{self.ant_count}m.png')
         # plt.show()
-
-        # print(np.core.defchararray.add(matrix_print, matrix_ant))
-        # print(matrix_print)
-        # print("###")
-        # print(matrix_ant)
-        # print("###")
-        # print(self.matrix_pheromone)
 
     def do_interation(self):
         # kazdy mravec musi vykonat funkciu go()
