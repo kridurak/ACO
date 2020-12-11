@@ -54,13 +54,12 @@ map_layer_3 = np.array([  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 my_world = World(matrix_wall=map_layer,
                  position_start=(4,0),
                  position_finish=(4,9),
-                 ant_count= 5,
-                 max_iterations= 200,
+                 ant_count= 20,
+                 max_iterations= 300,
                  pheromone_start_value=5.5,
                  pheromon_amount=0.008,
                  rho=0.989
                  )
-
 my_world.start()
 
 

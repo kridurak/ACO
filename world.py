@@ -1,6 +1,7 @@
 import numpy as np
 # import cupy as np
 from ant import Ant
+from any_v2 import Ant
 import pandas as pd
 import time
 import sys
@@ -80,10 +81,10 @@ class World:
 
         matrix_ant = matrix_ant.astype(int)
         self.render_gui(matrix_ant)
-        # matrix_ant = matrix_ant.astype(str)
-        # matrix_ant[matrix_ant == '0'] = " "
+        matrix_ant = matrix_ant.astype(str)
+        matrix_ant[matrix_ant == '0'] = " "
 
-        # print(np.core.defchararray.add(matrix_print, matrix_ant))
+        print(np.core.defchararray.add(matrix_print, matrix_ant))
         # print(matrix_print)
         # print("###")
         # print(matrix_ant)
