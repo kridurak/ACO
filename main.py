@@ -55,9 +55,9 @@ my_world = World(matrix_wall=map_layer,
                  position_start=(4,0),
                  position_finish=(4,9),
                  ant_count= 20,
-                 max_iterations= 300,
+                 max_iterations= 500    ,
                  pheromone_start_value=5.5,
-                 pheromon_amount=0.008,
+                 pheromon_amount=0.08,
                  rho=0.989
                  )
 my_world.start()

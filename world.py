@@ -80,7 +80,7 @@ class World:
         matrix_print[matrix_print == '0'] = " "
 
         matrix_ant = matrix_ant.astype(int)
-        self.render_gui(matrix_ant)
+        # self.render_gui(matrix_ant)
         matrix_ant = matrix_ant.astype(str)
         matrix_ant[matrix_ant == '0'] = " "
 
@@ -88,8 +88,8 @@ class World:
         # print(matrix_print)
         # print("###")
         # print(matrix_ant)
-        # print("###")
-        # print(self.matrix_pheromone)
+        print("###")
+        print(self.matrix_pheromone)
 
     def render_gui(self, matrix_ant):
 

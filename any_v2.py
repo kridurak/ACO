@@ -121,13 +121,13 @@ class Ant:
             mask_movement = self.movement_mask[self.last_array_command_index]
 
             ## 5 COST MATRIX
-            print(self.position_last)
-            print(self.position_actual)
-            print(mask_wall)
-            print(mask_pheromone)
-            print(mask_movement)
+            # print(self.position_last)
+            # print(self.position_actual)
+            # print(mask_wall)
+            # print(mask_pheromone)
+            # print(mask_movement)
             cost_matrix = self.distance_matrix * mask_wall * mask_pheromone * mask_movement
-            print(cost_matrix)
+            # print(cost_matrix)
 
             ## rozhodovanie
             ## matrix to array
